@@ -1,5 +1,7 @@
 import { supabase } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   // Get all conversations with their latest message
   const { data: conversations, error } = await supabase

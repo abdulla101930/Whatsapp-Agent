@@ -2,9 +2,21 @@
   "mcpServers": {
     "supabase": {
       "type": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=rjqxwxlxhlthbtkhrpeg",
+      "url": "https://mcp.supabase.com/mcp?project_ref=aplqyiwtlrjupazogkvz",
       "headers": {
-        "Authorization": "Bearer sbp_713148da17293c5920a463c4f4724a4bf26bd20b"
+        "Authorization": "Bearer sbp_1d0c139d0fd19d8d41e0cb544e8a8dce196a3a7d"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "env": {}
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
       }
     }
   }

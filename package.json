@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check-env": "node scripts/check-env.mjs",
+    "tunnel": "npx localtunnel --port 3000"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.100.0",

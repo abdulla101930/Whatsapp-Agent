@@ -34,12 +34,26 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetchConversations();
-  }, [fetchConversations]);
+    const ac = new AbortController();
+    void (async () => {
+      const res = await fetch("/api/conversations", { signal: ac.signal });
+      const data = (await res.json()) as ConversationWithLastMessage[];
+      setConversations(data);
+    })();
+    return () => ac.abort();
+  }, []);
 
   useEffect(() => {
-    if (selectedId) fetchMessages(selectedId);
-  }, [selectedId, fetchMessages]);
+    if (!selectedId) return;
+    const id = selectedId;
+    const ac = new AbortController();
+    void (async () => {
+      const res = await fetch(`/api/conversations/${id}/messages`, { signal: ac.signal });
+      const data = (await res.json()) as Message[];
+      setMessages(data);
+    })();
+    return () => ac.abort();
+  }, [selectedId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

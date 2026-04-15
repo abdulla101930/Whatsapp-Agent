@@ -2,20 +2,20 @@ import OpenAI from "openai";
 import { DENTIST_SYSTEM_PROMPT } from "@/lib/system-prompt";
 
 const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY || 'sk-dummy-key',
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY || 'sk-dummy-key',
 });
 
 console.log("=== AI KEY Debug ===");
-console.log("OPENROUTER_API_KEY from env is:", process.env.OPENROUTER_API_KEY);
-console.log("Key length:", process.env.OPENROUTER_API_KEY?.length);
+console.log("GROQ_API_KEY from env is:", process.env.GROQ_API_KEY);
+console.log("Key length:", process.env.GROQ_API_KEY?.length);
 console.log("Using key:", openai.apiKey);
 
 export async function getAIResponse(
   messages: { role: "user" | "assistant"; content: string }[]
 ) {
   const completion = await openai.chat.completions.create({
-    model: process.env.AI_MODEL || "anthropic/claude-sonnet-4-20250514",
+    model: process.env.AI_MODEL || "llama-3.3-70b-versatile",
     messages: [
       {
         role: "system",

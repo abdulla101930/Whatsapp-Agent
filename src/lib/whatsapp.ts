@@ -1,4 +1,9 @@
 export async function sendWhatsAppMessage(to: string, body: string) {
+  // Ensure the number has the exact format Meta requires (no '+' sign)
+  const cleanTo = to.startsWith('+') ? to.slice(1) : to;
+  
+  console.log(`[WhatsApp API] Attempting to send message to: ${cleanTo} using Phone Number ID: ${process.env.WHATSAPP_PHONE_NUMBER_ID}`);
+  
   const res = await fetch(
     `https://graph.facebook.com/v22.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
     {
@@ -9,7 +14,7 @@ export async function sendWhatsAppMessage(to: string, body: string) {
       },
       body: JSON.stringify({
         messaging_product: "whatsapp",
-        to,
+        to: cleanTo,
         type: "text",
         text: { body },
       }),

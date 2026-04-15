@@ -105,15 +105,19 @@ export async function POST(request: NextRequest) {
       .limit(20);
 
     // Get AI response
+    console.log(`[Webhook] Getting AI response for text: "${text}" from ${phone}`);
     const aiResponse = await getAIResponse(
       (history || []).map((m) => ({
         role: m.role as "user" | "assistant",
         content: m.content,
       }))
     );
+    console.log(`[Webhook] AI Response generated: ${aiResponse?.substring(0, 50)}...`);
 
     // Send response via WhatsApp
-    await sendWhatsAppMessage(phone, aiResponse);
+    console.log(`[Webhook] Sending message back to ${phone}`);
+    const waResponse = await sendWhatsAppMessage(phone, aiResponse);
+    console.log(`[Webhook] Message sent successfully. Meta response ID: ${waResponse.messages?.[0]?.id}`);
 
     // Store AI response
     await supabase.from("messages").insert({

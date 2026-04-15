@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "check-env": "node scripts/check-env.mjs",
-    "tunnel": "npx localtunnel --port 3000"
+    "tunnel": "npx localtunnel --port 3000",
+    "ngrok": "npx ngrok http 3000"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.100.0",
+    "bottleneck": "^2.19.5",
     "next": "16.2.1",
     "openai": "^6.32.0",
     "pg": "^8.20.0",

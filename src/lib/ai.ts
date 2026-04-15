@@ -2,8 +2,8 @@ import OpenAI from "openai";
 import { DENTIST_SYSTEM_PROMPT } from "@/lib/system-prompt";
 
 const openai = new OpenAI({
-  baseURL: "https://api.groq.com/openai/v1",
-  apiKey: process.env.GROQ_API_KEY || 'sk-dummy-key',
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: process.env.OPENROUTER_API_KEY || 'sk-dummy-key',
 });
 
 console.log("=== AI KEY Debug ===");
@@ -12,10 +12,10 @@ console.log("Key length:", process.env.GROQ_API_KEY?.length);
 console.log("Using key:", openai.apiKey);
 
 export async function getAIResponse(
-  messages: { role: "user" | "assistant"; content: string }[]
+  messages: { role: "user" | "assistant"; content: string }[],
 ) {
   const completion = await openai.chat.completions.create({
-    model: process.env.AI_MODEL || "llama-3.3-70b-versatile",
+    model: process.env.AI_MODEL || "anthropic/claude-sonnet-4-20250514",
     messages: [
       {
         role: "system",
@@ -25,5 +25,8 @@ export async function getAIResponse(
     ],
   });
 
-  return completion.choices[0]?.message?.content || "Sorry, I couldn't generate a response.";
+  return (
+    completion.choices[0]?.message?.content ||
+    "Sorry, I couldn't generate a response."
+  );
 }
